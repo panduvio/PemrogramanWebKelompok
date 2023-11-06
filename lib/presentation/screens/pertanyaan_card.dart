@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tugas_kelompok/domain/entities/pertanyaan_entity.dart';
@@ -17,113 +19,122 @@ class _PertanyaanCardState extends State<PertanyaanCard> {
   String selectedValue = '';
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(
-        left: 64,
-        right: 64,
-        top: 40,
-        bottom: 20,
-      ),
-      height: 590,
-      width: 618,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0.0, 1.0],
-          colors: [
-            const Color.fromARGB(115, 255, 255, 255),
-            const Color.fromARGB(115, 255, 255, 255),
-          ],
-        ),
-      ),
-      child: Column(
-        children: [
-          Text(
-            'Berikanlah penilaian kemampuan diri Anda terhadap pekerjaan yang diminati!',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 28, fontWeight: FontWeight.w700, color: Colors.white),
+    return ClipRRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.only(
+            left: 64,
+            right: 64,
+            top: 40,
+            bottom: 20,
           ),
-          SizedBox(
-            height: 24,
-          ),
-          Text(
-            pertanyaanList[soalIndex].pertanyaan,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white),
-          ),
-          SizedBox(
-            height: 28,
-          ),
-          Expanded(
-            child: ListView.separated(
-              itemBuilder: (context, index) {
-                return RadioListTile(
-                  title: Text(
-                    pertanyaanList[soalIndex].listJawab[index],
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                  ),
-                  value: pertanyaanList[soalIndex].listJawab[index],
-                  groupValue: selectedValue,
-                  onChanged: (newValue) {
-                    setState(() {
-                      selectedValue = newValue!;
-                    });
-                  },
-                );
-              },
-              separatorBuilder: (context, index) => SizedBox(
-                height: 0,
-              ),
-              itemCount: pertanyaanList[soalIndex].listJawab.length,
+          height: 590,
+          width: 618,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0.0, 1.0],
+              colors: [
+                const Color.fromARGB(115, 255, 255, 255),
+                const Color.fromARGB(115, 255, 255, 255),
+              ],
             ),
           ),
-          SizedBox(
-            height: 16,
-          ),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedValue = '';
-                soalIndex < 2
-                    ? soalIndex = soalIndex + 1
-                    : Provider.of<RouteProvider>(context, listen: false)
-                        .updateRoute(5);
-              });
-            },
-            child: Container(
-              alignment: Alignment.center,
-              height: 40,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    AppColor().aquaticGreen,
-                    AppColor().royalBlueMetallic,
-                  ],
-                ),
-              ),
-              child: Text(
-                'Selanjutnya',
+          child: Column(
+            children: [
+              Text(
+                'Berikanlah penilaian kemampuan diri Anda terhadap pekerjaan yang diminati!',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white),
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              Text(
+                pertanyaanList[soalIndex].pertanyaan,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white),
+              ),
+              SizedBox(
+                height: 28,
+              ),
+              Expanded(
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    return RadioListTile(
+                      title: Text(
+                        pertanyaanList[soalIndex].listJawab[index],
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
+                      value: pertanyaanList[soalIndex].listJawab[index],
+                      groupValue: selectedValue,
+                      onChanged: (newValue) {
+                        setState(() {
+                          selectedValue = newValue!;
+                        });
+                      },
+                    );
+                  },
+                  separatorBuilder: (context, index) => SizedBox(
+                    height: 0,
+                  ),
+                  itemCount: pertanyaanList[soalIndex].listJawab.length,
                 ),
               ),
-            ),
+              SizedBox(
+                height: 16,
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedValue = '';
+                    soalIndex < 2
+                        ? soalIndex = soalIndex + 1
+                        : Provider.of<RouteProvider>(context, listen: false)
+                            .updateRoute(5);
+                  });
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 40,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        AppColor().aquaticGreen,
+                        AppColor().royalBlueMetallic,
+                      ],
+                    ),
+                  ),
+                  child: Text(
+                    'Selanjutnya',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

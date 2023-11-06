@@ -5,7 +5,9 @@ import 'package:tugas_kelompok/presentation/screens/login_card.dart';
 import 'package:tugas_kelompok/presentation/screens/pekerjaan_list_card.dart';
 import 'package:tugas_kelompok/presentation/screens/pertanyaan_card.dart';
 import 'package:tugas_kelompok/presentation/screens/recommendation_card.dart';
+import 'package:tugas_kelompok/presentation/screens/recommendation_courses_card.dart';
 import 'package:tugas_kelompok/presentation/screens/registration_card.dart';
+import 'package:tugas_kelompok/presentation/screens/to_do_list.dart';
 import 'package:tugas_kelompok/presentation/screens/upload_cv_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
       PertanyaanCard(),
       UploadCvCard(),
       RecommendationCard(),
+      RecommendationCourseCard(),
+      ToDoListCard(),
     ];
     return Scaffold(
       body: Center(
