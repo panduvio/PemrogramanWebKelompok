@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tugas_kelompok/data/models/user_model.dart';
 import 'package:tugas_kelompok/dependency_injector.dart';
 import 'package:tugas_kelompok/domain/entities/user_entity.dart';
 import 'package:tugas_kelompok/domain/usecases/get_login_usecase.dart';
@@ -33,7 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with ChangeNotifier {
       await sl<SignupUsecase>().signup(event.loginData);
       emit(LoginTryState());
     } catch (e) {
-      throw Exception('Failed to sign up: $e');
+      print('Failed to sign up: $e');
     }
     notifyListeners();
   }
@@ -44,7 +45,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with ChangeNotifier {
       await sl<LoginUsecase>().login(event.email, event.password);
       add(GetLogin(email: event.email));
     } catch (e) {
-      throw Exception('Failed to Login: $e');
+      print('Failed to Login: $e');
     }
   }
 }

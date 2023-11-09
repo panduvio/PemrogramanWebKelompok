@@ -5,6 +5,12 @@ abstract class TodoEvent {}
 
 class GetAllTask extends TodoEvent {}
 
+class Predict extends TodoEvent {
+  final Uint8List file;
+
+  Predict({required this.file});
+}
+
 class AddTask extends TodoEvent {
   final TodoEntity task;
 

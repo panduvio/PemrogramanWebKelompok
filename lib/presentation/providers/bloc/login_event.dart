@@ -20,7 +20,7 @@ class Login extends LoginEvent {
 }
 
 class Signup extends LoginEvent {
-  final UserEntity loginData;
+  final UserModel loginData;
 
   Signup({required this.loginData});
 }

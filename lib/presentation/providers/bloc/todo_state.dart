@@ -4,6 +4,14 @@ abstract class TodoState {}
 
 class TodoLoadingState extends TodoState {}
 
+class PredictLoadingState extends TodoState {}
+
+class PredictSuccessState extends TodoState {
+  final String job;
+
+  PredictSuccessState({required this.job});
+}
+
 class TodoLoadedState extends TodoState {
   final List<TodoEntity> tasks;
 

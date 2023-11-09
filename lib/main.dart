@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:tugas_kelompok/dependency_injector.dart';
+import 'package:tugas_kelompok/presentation/providers/bloc/login_bloc.dart';
+import 'package:tugas_kelompok/presentation/providers/bloc/todo_bloc.dart';
 import 'package:tugas_kelompok/presentation/providers/route_provider.dart';
 import 'package:tugas_kelompok/presentation/screens/home_screen.dart';
 
 void main() {
+  setUp();
+
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => RouteProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => RouteProvider(),
+        ),
+        BlocProvider(
+          create: (context) => TodoBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LoginBloc(),
+        ),
+      ],
       child: MyApp(),
     ),
   );

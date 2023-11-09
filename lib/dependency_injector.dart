@@ -8,8 +8,10 @@ import 'package:tugas_kelompok/domain/usecases/delete_task_usecase.dart';
 import 'package:tugas_kelompok/domain/usecases/get_all_task.dart';
 import 'package:tugas_kelompok/domain/usecases/get_login_usecase.dart';
 import 'package:tugas_kelompok/domain/usecases/login_usecase.dart';
+import 'package:tugas_kelompok/domain/usecases/post_get_job_usecase.dart';
 import 'package:tugas_kelompok/domain/usecases/signup_usecase.dart';
 import 'package:tugas_kelompok/domain/usecases/update_task_usecase.dart';
+import 'package:tugas_kelompok/presentation/providers/bloc/todo_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -25,4 +27,5 @@ void setUp() {
   sl.registerLazySingleton<AddTaskUsecase>(() => AddTaskUsecase(sl()));
   sl.registerLazySingleton<UpdateTaskUsecase>(() => UpdateTaskUsecase(sl()));
   sl.registerLazySingleton<DeleteTaskUsecase>(() => DeleteTaskUsecase(sl()));
+  sl.registerLazySingleton<PostGetJobUsecase>(() => PostGetJobUsecase(sl()));
 }

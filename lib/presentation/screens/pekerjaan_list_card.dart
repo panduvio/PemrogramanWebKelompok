@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constant/app_color.dart';
 import '../providers/route_provider.dart';
@@ -15,6 +16,8 @@ class PekerjaanListCard extends StatefulWidget {
 
 class _PekerjaanListCardState extends State<PekerjaanListCard> {
   String selectedPekerjaan = 'Pilih pekerjaan';
+
+  late SharedPreferences pekerjaanSP;
   final List<String> listKerja = [
     'DevOps Engineer',
     'Data Science',
@@ -23,6 +26,19 @@ class _PekerjaanListCardState extends State<PekerjaanListCard> {
     'Business Analyst',
     'Operation Manager',
   ];
+
+  void initial() async {
+    pekerjaanSP = await SharedPreferences.getInstance();
+    pekerjaanSP.setString('kerja', '');
+  }
+
+  @override
+  void initState() {
+    initial();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -94,8 +110,11 @@ class _PekerjaanListCardState extends State<PekerjaanListCard> {
               Spacer(),
               GestureDetector(
                 onTap: () {
-                  Provider.of<RouteProvider>(context, listen: false)
-                      .updateRoute(4);
+                  if (selectedPekerjaan != 'Pilih pekerjaan') {
+                    pekerjaanSP.setString('kerja', selectedPekerjaan);
+                    Provider.of<RouteProvider>(context, listen: false)
+                        .updateRoute(4);
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,

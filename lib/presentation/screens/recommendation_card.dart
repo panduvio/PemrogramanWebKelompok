@@ -2,6 +2,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:provider/provider.dart';
 import 'package:tugas_kelompok/constant/app_color.dart';
 import 'package:tugas_kelompok/presentation/providers/route_provider.dart';
@@ -14,6 +16,27 @@ class RecommendationCard extends StatefulWidget {
 }
 
 class _RecommendationCardState extends State<RecommendationCard> {
+  late SharedPreferences pekerjaanSp;
+  String pekerjaan = '';
+  int persentase = 0;
+
+  void initial() async {
+    pekerjaanSp = await SharedPreferences.getInstance();
+    setState(() {
+      pekerjaan = pekerjaanSp.getString('kerja')!;
+      persentase = pekerjaanSp.getInt('persen')!;
+
+      print(persentase);
+      print(pekerjaan);
+    });
+  }
+
+  @override
+  void initState() {
+    initial();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -154,7 +177,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
                                 ),
                               ),
                               child: Text(
-                                '',
+                                '$pekerjaan - - $persentase %',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,

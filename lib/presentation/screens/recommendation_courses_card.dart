@@ -1,7 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tugas_kelompok/constant/app_color.dart';
+import 'package:tugas_kelompok/domain/entities/rekomendasi_entity.dart';
+import 'package:tugas_kelompok/presentation/providers/route_provider.dart';
 
 class RecommendationCourseCard extends StatefulWidget {
   const RecommendationCourseCard({super.key});
@@ -12,6 +16,41 @@ class RecommendationCourseCard extends StatefulWidget {
 }
 
 class _RecommendationCourseCardState extends State<RecommendationCourseCard> {
+  String pekerjaan = '';
+  int persentase = 0;
+  List<RekomendasiEntity> listCourse = rekomList;
+  String imagePath1 = 'assets/operation_manager_1_1.png';
+  String imagePath2 = 'assets/operation_manager_2_1.png';
+  late SharedPreferences pekerjaanSP;
+
+  void initial() async {
+    pekerjaanSP = await SharedPreferences.getInstance();
+    setState(() {
+      pekerjaan = pekerjaanSP.getString('kerja')!;
+      persentase = pekerjaanSP.getInt('persen')!;
+
+      print(persentase);
+      print(pekerjaan);
+    });
+    for (int i = 0; i < listCourse.length; i++) {
+      if (pekerjaan == listCourse[i].namaPekerjaan) {
+        setState(() {
+          imagePath1 = listCourse[i].rekomendasi1;
+          imagePath2 = listCourse[i].rekomendasi2;
+
+          print(imagePath1);
+          print(imagePath2);
+        });
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    initial();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -40,7 +79,7 @@ class _RecommendationCourseCardState extends State<RecommendationCourseCard> {
           child: Column(
             children: [
               Text(
-                'Kami merekomendasikan Kursus Online untuk\nData Science ',
+                'Kami merekomendasikan Kursus Online untuk\n$pekerjaan ',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 32,
@@ -91,19 +130,25 @@ class _RecommendationCourseCardState extends State<RecommendationCourseCard> {
                       ),
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: 150,
-                            width: 150,
-                            child: Image.asset(
-                              'assets/python.png',
-                              fit: BoxFit.contain,
+                          InkWell(
+                            onTap: () {
+                              Provider.of<RouteProvider>(context, listen: false)
+                                  .updateRoute(7);
+                            },
+                            child: SizedBox(
+                              height: 150,
+                              width: 150,
+                              child: Image.asset(
+                                imagePath1,
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
                           SizedBox(
                             height: 8,
                           ),
                           Text(
-                            'Python Tutorial for Beginners',
+                            '$pekerjaan Tutorial for Beginners',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 20,
@@ -159,7 +204,7 @@ class _RecommendationCourseCardState extends State<RecommendationCourseCard> {
                             height: 150,
                             width: 150,
                             child: Image.asset(
-                              'assets/machine_learning.png',
+                              imagePath2,
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -167,7 +212,7 @@ class _RecommendationCourseCardState extends State<RecommendationCourseCard> {
                             height: 8,
                           ),
                           Text(
-                            'Machine Learning\nPlaylist',
+                            '$pekerjaan\nPlaylist',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 20,

@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:provider/provider.dart';
 import 'package:tugas_kelompok/domain/entities/pertanyaan_entity.dart';
 
@@ -16,7 +18,22 @@ class PertanyaanCard extends StatefulWidget {
 
 class _PertanyaanCardState extends State<PertanyaanCard> {
   int soalIndex = 0;
+  int pilihanIndex = 0;
   String selectedValue = '';
+  int precentage = 0;
+  int totalPrecentage = 0;
+  late SharedPreferences pekerjaanSP;
+
+  void initial() async {
+    pekerjaanSP = await SharedPreferences.getInstance();
+  }
+
+  @override
+  void initState() {
+    initial();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -83,6 +100,7 @@ class _PertanyaanCardState extends State<PertanyaanCard> {
                       groupValue: selectedValue,
                       onChanged: (newValue) {
                         setState(() {
+                          pilihanIndex = index;
                           selectedValue = newValue!;
                         });
                       },
@@ -101,10 +119,19 @@ class _PertanyaanCardState extends State<PertanyaanCard> {
                 onTap: () {
                   setState(() {
                     selectedValue = '';
-                    soalIndex < 2
-                        ? soalIndex = soalIndex + 1
-                        : Provider.of<RouteProvider>(context, listen: false)
-                            .updateRoute(5);
+                    if (soalIndex < 2) {
+                      soalIndex = soalIndex + 1;
+                      precentage == 0
+                          ? precentage = (pilihanIndex + 1) * 20
+                          : precentage = precentage + ((pilihanIndex + 1) * 20);
+                      print(precentage);
+                    } else {
+                      totalPrecentage = (precentage / 3).truncate();
+                      print(totalPrecentage);
+                      pekerjaanSP.setInt('persen', totalPrecentage);
+                      Provider.of<RouteProvider>(context, listen: false)
+                          .updateRoute(5);
+                    }
                   });
                 },
                 child: Container(
