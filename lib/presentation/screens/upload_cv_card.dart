@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 
@@ -29,7 +28,7 @@ class _UploadCvCardState extends State<UploadCvCard> {
 
         if (result != null) {
           Uint8List bytes = result.files.single.bytes!;
-          print(bytes);
+
           context.read<TodoBloc>()..add(Predict(file: bytes));
         } else {}
       }

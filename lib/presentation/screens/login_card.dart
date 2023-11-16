@@ -149,7 +149,7 @@ class _LoginCardState extends State<LoginCard> {
                       } else if (value.length < 8) {
                         return 'Password should contain at least 8 characters';
                       } else if (!RegExp(
-                              r'^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$')
+                              r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$')
                           .hasMatch(value)) {
                         return 'Password should contain at least a symbol, a number, and an upper case letter';
                       } else {

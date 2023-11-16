@@ -22,6 +22,7 @@ class _RecommendationCourseCardState extends State<RecommendationCourseCard> {
   String imagePath1 = 'assets/operation_manager_1_1.png';
   String imagePath2 = 'assets/operation_manager_2_1.png';
   late SharedPreferences pekerjaanSP;
+  int indexPilihan = 0;
 
   void initial() async {
     pekerjaanSP = await SharedPreferences.getInstance();
@@ -96,8 +97,9 @@ class _RecommendationCourseCardState extends State<RecommendationCourseCard> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        // Provider.of<RouteProvider>(context, listen: false)
-                        //     .updateRoute(3);
+                        indexPilihan = 1;
+                        Provider.of<RouteProvider>(context, listen: false)
+                            .updateRoute(8);
                       });
                     },
                     child: Container(
@@ -106,6 +108,12 @@ class _RecommendationCourseCardState extends State<RecommendationCourseCard> {
                       height: 290,
                       width: 238,
                       decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 2,
+                          color: indexPilihan == 1
+                              ? Colors.yellow
+                              : Colors.transparent,
+                        ),
                         borderRadius: BorderRadius.circular(10),
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -166,8 +174,9 @@ class _RecommendationCourseCardState extends State<RecommendationCourseCard> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        // Provider.of<RouteProvider>(context, listen: false)
-                        //     .updateRoute(3);
+                        indexPilihan = 2;
+                        Provider.of<RouteProvider>(context, listen: false)
+                            .updateRoute(8);
                       });
                     },
                     child: Container(
@@ -176,6 +185,12 @@ class _RecommendationCourseCardState extends State<RecommendationCourseCard> {
                       height: 290,
                       width: 238,
                       decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 2,
+                          color: indexPilihan == 2
+                              ? Colors.yellow
+                              : Colors.transparent,
+                        ),
                         borderRadius: BorderRadius.circular(10),
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,

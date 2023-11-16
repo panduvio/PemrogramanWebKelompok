@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:tugas_kelompok/data/models/user_model.dart';
-import 'package:tugas_kelompok/domain/entities/user_entity.dart';
 import 'package:tugas_kelompok/presentation/providers/bloc/login_bloc.dart';
 import 'package:tugas_kelompok/presentation/providers/bloc/todo_bloc.dart';
 
@@ -140,7 +139,7 @@ class _RegistrationCardState extends State<RegistrationCard> {
                         } else if (value.length < 8) {
                           return 'Password should contain at least 8 characters';
                         } else if (!RegExp(
-                                r'^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$')
+                                r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$')
                             .hasMatch(value)) {
                           return 'Password should contain at least a symbol, a number, and an upper case letter';
                         } else {
@@ -163,12 +162,24 @@ class _RegistrationCardState extends State<RegistrationCard> {
                         Text('I agree to the terms & condition'),
                       ],
                     ),
+                    isChecked == true
+                        ? SizedBox()
+                        : Container(
+                            alignment: Alignment.topLeft,
+                            width: double.maxFinite,
+                            child: Text(
+                              'Please agree to the term & condition',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
                     SizedBox(
                       height: 28,
                     ),
                     InkWell(
                       onTap: () {
-                        if (formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate() &&
+                            isChecked == true) {
                           final loginData = UserModel(
                             name: nameController.text,
                             email: emailController.text,

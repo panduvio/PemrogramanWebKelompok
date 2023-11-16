@@ -126,6 +126,7 @@ class _PertanyaanCardState extends State<PertanyaanCard> {
                           : precentage = precentage + ((pilihanIndex + 1) * 20);
                       print(precentage);
                     } else {
+                      precentage = precentage + ((pilihanIndex + 1) * 20);
                       totalPrecentage = (precentage / 3).truncate();
                       print(totalPrecentage);
                       pekerjaanSP.setInt('persen', totalPrecentage);

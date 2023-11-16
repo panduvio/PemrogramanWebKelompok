@@ -19,6 +19,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
   late SharedPreferences pekerjaanSp;
   String pekerjaan = '';
   int persentase = 0;
+  int indexPilihan = 0;
 
   void initial() async {
     pekerjaanSp = await SharedPreferences.getInstance();
@@ -92,8 +93,9 @@ class _RecommendationCardState extends State<RecommendationCard> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                // Provider.of<RouteProvider>(context, listen: false)
-                                //     .updateRoute(3);
+                                indexPilihan = 1;
+                                pekerjaanSp.setString(
+                                    'kerja', 'Java Developer');
                               });
                             },
                             child: Container(
@@ -101,18 +103,28 @@ class _RecommendationCardState extends State<RecommendationCard> {
                               height: 60,
                               width: 445,
                               decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 2,
+                                  color: indexPilihan == 1
+                                      ? AppColor().aquaticGreen
+                                      : Colors.transparent,
+                                ),
                                 borderRadius: BorderRadius.circular(10),
                                 gradient: LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    AppColor().aquaticGreen,
-                                    AppColor().royalBlueMetallic,
+                                    indexPilihan == 1
+                                        ? AppColor().deepAquamarine
+                                        : AppColor().aquaticGreen,
+                                    indexPilihan == 1
+                                        ? AppColor().dignityBlue
+                                        : AppColor().royalBlueMetallic,
                                   ],
                                 ),
                               ),
                               child: Text(
-                                '',
+                                'Java Developer',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
@@ -157,8 +169,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                // Provider.of<RouteProvider>(context, listen: false)
-                                //     .updateRoute(3);
+                                indexPilihan = 2;
                               });
                             },
                             child: Container(
@@ -166,13 +177,23 @@ class _RecommendationCardState extends State<RecommendationCard> {
                               height: 60,
                               width: 445,
                               decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 2,
+                                  color: indexPilihan == 2
+                                      ? AppColor().aquaticGreen
+                                      : Colors.transparent,
+                                ),
                                 borderRadius: BorderRadius.circular(10),
                                 gradient: LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    AppColor().aquaticGreen,
-                                    AppColor().royalBlueMetallic,
+                                    indexPilihan == 2
+                                        ? AppColor().deepAquamarine
+                                        : AppColor().aquaticGreen,
+                                    indexPilihan == 2
+                                        ? AppColor().dignityBlue
+                                        : AppColor().royalBlueMetallic,
                                   ],
                                 ),
                               ),

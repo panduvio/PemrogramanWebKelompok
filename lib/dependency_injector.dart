@@ -11,7 +11,6 @@ import 'package:tugas_kelompok/domain/usecases/login_usecase.dart';
 import 'package:tugas_kelompok/domain/usecases/post_get_job_usecase.dart';
 import 'package:tugas_kelompok/domain/usecases/signup_usecase.dart';
 import 'package:tugas_kelompok/domain/usecases/update_task_usecase.dart';
-import 'package:tugas_kelompok/presentation/providers/bloc/todo_bloc.dart';
 
 final sl = GetIt.instance;
 
